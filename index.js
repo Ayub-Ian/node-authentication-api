@@ -1,7 +1,7 @@
 // Create express app
 const express = require("express");
 const app = express();
-
+const db = require("./database.js")
 // middleware
 // parses incoming requests with JSON payloads
 app.use(express.json());
@@ -18,6 +18,23 @@ app.listen(PORT,(err) => {
 // root endpoint 
 app.get("/", (req, res) => {
     res.send({"message" : "OK"})
+})
+
+
+app.get("/users", (req,res) => {
+    const query =  "select * from user"
+    const params = []
+    db.all(query, params, (err, rows) => {
+        if (err) {
+            res.status(400).json({"error":err.message});
+            return;
+          }
+          res.send({
+            message: "success",
+            data: rows
+          })
+    })
+    
 })
 
 
