@@ -19,7 +19,7 @@ let db_connection = new sqlite.Database(DB_SOURCE, (err) => {
             )`,
       (err) => {
         if (err) {
-          console.error(err.message);
+          
         } else {
           // Table just created, creating some rows
           const insert =
